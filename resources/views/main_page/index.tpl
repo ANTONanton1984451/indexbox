@@ -13,7 +13,7 @@
 <body>
 <div class="container-fluid p-0">
     <?php require 'header.tpl' ?>
-    <div class="row p-0 align-items-start">
+    <div class="row p-0 align-items-start mt-1">
         <?php require 'sidebar.tpl' ?>
         <?php require 'mainside.tpl' ?>
     </div>
