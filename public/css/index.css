@@ -1,0 +1,20 @@
+header{
+    height: 50px;
+    border-bottom: 1px solid black;
+}
+body{
+    height: 100vh;
+}
+.icon{
+    border-left : 1px solid black;
+    text-align: center;
+    width: 70px;
+    margin-right:10px ;
+}
+.burger{
+    width: 50px;
+    align-content: center;
+}
+.side-bar{
+
+}

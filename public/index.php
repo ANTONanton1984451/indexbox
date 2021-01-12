@@ -1,8 +1,6 @@
 <?php
-require_once '../autoloader.php';
-require_once '../Helpers/functions.php';
 
-$a = \App\Config\Config::get();
+require_once '../App/bootstrap.php';
 
-$a = 0;
 
+(new \App\Templator())->render('test');
