@@ -1,0 +1,32 @@
+<?php
+require_once 'autoloader.php';
+require_once 'Helpers/functions.php';
+
+const CREATE = 'create';
+
+const DROP = 'drop';
+
+const FILL = 'fill';
+
+const ALL = 'all';
+
+$command = $argv[1];
+
+$schema = new \App\DB\Schema(new \Helpers\QueryCreator());
+
+switch ($command){
+    case CREATE :
+        $schema->up();
+        break;
+    case FILL :
+        $schema->fill();
+        break;
+    case DROP :
+        $schema->down();
+        break;
+    case ALL :
+        $schema->setReady();
+        break;
+    default:
+        throw new App\Exceptions\CommandException('command not found');
+}

@@ -3,7 +3,7 @@
         "href":"varchar(100)",
         "title":"varchar(255)",
         "body":"text",
-        "descriptopn":"text",
+        "description":"text",
         "product":"varchar(255)",
         "views":"int(11)",
         "time_create":"int(11)"
