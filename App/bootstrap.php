@@ -6,3 +6,4 @@ require_once '../routes.php';
 
 require_once '../Helpers/functions.php';
 
+new App\Router\Router();

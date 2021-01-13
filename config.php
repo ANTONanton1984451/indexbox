@@ -14,6 +14,12 @@ return [
 
         'user' => 'root'
 
+    ],
+
+    'templates' => [
+
+        'base_path' => __DIR__.'/resources/views/'
+
     ]
 
 ];

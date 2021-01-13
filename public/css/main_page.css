@@ -1,0 +1,37 @@
+header{
+    height: 50px;
+    border-bottom: 1px solid rgba(144,144,144,0.3);
+}
+body{
+    height: 100vh;
+    background-color: whitesmoke;
+}
+.icon{
+    text-align: center;
+    width: 70px;
+    margin-right:10px ;
+}
+.burger{
+    width: 50px;
+    align-content: center;
+    cursor: pointer;
+}
+.full{
+    display: flex !important;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+}
+.main{
+    background-color: white;
+}
+#close{
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+}

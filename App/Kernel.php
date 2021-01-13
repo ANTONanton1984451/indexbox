@@ -8,7 +8,15 @@ use App\Router\Router;
 
 class Kernel
 {
-    public function handle(){
+    private Router $router;
+
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
+
+    public function handle()
+    {
 
     }
 }

@@ -1,0 +1,11 @@
+header{
+    height: 50px;
+    border-bottom: 1px solid rgba(144,144,144,0.3);
+}
+body{
+    height: 100vh;
+    background-color: whitesmoke;
+}
+.main{
+    background-color: white;
+}

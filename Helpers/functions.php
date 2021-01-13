@@ -1,5 +1,7 @@
 <?php
 
+use App\Config\Config;
+
 /**
  * @param string $configName
  * @return mixed|null
@@ -8,7 +10,7 @@ function config(string $configName)
 {
     $searchIndexes = explode('.',$configName);
 
-    $configs = \App\Config\Config::get();
+    $configs = Config::get();
 
     $configValue = $configs[$searchIndexes[0]];
 
@@ -17,4 +19,9 @@ function config(string $configName)
     }
 
     return $configValue;
+}
+
+function view(string $viewName,array $data = []) : \App\Interfaces\TemplateBridge
+{
+    return new \App\Template\CustomBridge(new \App\Template\CustomEngine(),$viewName,$data);
 }
