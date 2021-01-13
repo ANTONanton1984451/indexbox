@@ -12,6 +12,6 @@ class MainPageController extends Controller
 
     public function render()
     {
-        return view('main_page.index');
+        return view('main_page.index',['test'=>'Title']);
     }
 }

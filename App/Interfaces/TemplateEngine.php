@@ -4,7 +4,7 @@
 namespace App\Interfaces;
 
 
-use App\Exceptions\TemplateNotFoundException;
+
 
 interface TemplateEngine
 {

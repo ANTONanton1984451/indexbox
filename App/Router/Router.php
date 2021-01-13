@@ -5,10 +5,15 @@ namespace App\Router;
 
 
 use App\Exceptions\HttpMethodNotFoundException;
+use App\Interfaces\RequestFactoryInterface;
+use App\Interfaces\RequestInterface;
+use App\Interfaces\RouteFactoryInterface;
+use App\Interfaces\RouteInterface;
 
 class Router
 {
-    private
+    private RequestInterface $request;
+    private RouteInterface $route;
 
     /**
      * @var array
@@ -26,26 +31,58 @@ class Router
         self::$$arrayRoutes[$arguments[0]] = $arguments[1];
     }
 
-    public function __construct()
+    public function __construct(RouteFactoryInterface $routeFactory,RequestFactoryInterface $requestFactory)
     {
        $method = strtolower($_SERVER["REQUEST_METHOD"]);
        $routeMethod = $method.'Routes';
 
-       $requestUri = $_SERVER['REQUEST_URI'];
+        $requestUri = $this->formRequestPath();
 
-       if(!isset(self::$$routeMethod[$requestUri])){
+       if(isset(self::$$routeMethod[$requestUri])){
+         $pathParams = self::$$routeMethod[$requestUri];
+         $this->request = $requestFactory->getRequest();
+         $this->route = $routeFactory->getRoute();
 
-            $this->formRoute($requestUri);
-
+         $this->formRequest();
+         $this->formRoute($pathParams);
        }else{
-
            throw new HttpMethodNotFoundException("Http method $method not found");
-
        }
     }
 
-    private function formRoute(string $requestUri)
+    /**
+     * @return RouteInterface
+     */
+    public function getRoute(): RouteInterface
     {
-
+        return $this->route;
     }
+
+    private function formRoute(array $pathParams)
+    {
+        $this->route->setRequest($this->request);
+        $this->route->setControllerMethod($pathParams[1]);
+        $this->route->setControllerName($pathParams[0]);
+    }
+
+    private function formRequest() : void
+    {
+        $this->request->setHeaders(getallheaders());
+        $this->request->setPath($_SERVER['REQUEST_URI']);
+        $this->request->setMethod(strtolower($_SERVER['REQUEST_METHOD']));
+        $this->request->setQueryParams($_GET);
+    }
+
+    private function formRequestPath() : string
+    {
+        $queryPos = strpos($_SERVER['REQUEST_URI'],'?');
+        if(!$queryPos){
+            $requestUri = $_SERVER['REQUEST_URI'];
+        }else{
+            $requestUri = substr($_SERVER['REQUEST_URI'],0,$queryPos);
+        }
+        return $requestUri;
+    }
+
+
 }

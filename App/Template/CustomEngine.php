@@ -4,7 +4,7 @@
 namespace App\Template;
 
 
-use App\Exceptions\TemplateNotFoundException;
+
 use App\Interfaces\TemplateEngine;
 
 class CustomEngine implements TemplateEngine

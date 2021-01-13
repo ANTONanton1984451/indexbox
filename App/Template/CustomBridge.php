@@ -18,9 +18,9 @@ class CustomBridge implements TemplateBridge
 
     public function __construct(TemplateEngine $engine, string $viewName, array $data = [])
     {
-        $templatePath = $this->formTemplatePath($viewName);
-        if(!fopen($templatePath,'r')) {
-            throw new TemplateNotFoundException("Template $ not found");
+        $templatePath = $this->formViewPath($viewName);
+        if(!@fopen($templatePath,'r')) {
+            throw new TemplateNotFoundException("Template $viewName not found");
         }
 
         $engine->setTemplatePath($templatePath);
@@ -33,7 +33,7 @@ class CustomBridge implements TemplateBridge
         $this->engine->render($this->data);
     }
 
-    private function formTemplateView(string $viewName) : string
+    private function formViewPath(string $viewName) : string
     {
         $templateBasePath = config('templates.base_path');
         return $templateBasePath.str_replace('.','/',$viewName).self::TMPL_EXT;

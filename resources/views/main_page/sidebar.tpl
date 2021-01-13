@@ -20,5 +20,5 @@
             <option value="20">20</option>
         </select>
     </div>
-    <img src="images/close.svg" class="close" id="close" style="width:24px;height: 24px">
+    <img src="images/close.svg" class="close d-md-none" id="close" style="width:24px;height: 24px">
 </div>

@@ -6,4 +6,4 @@ require_once '../routes.php';
 
 require_once '../Helpers/functions.php';
 
-new App\Router\Router();
+return new App\Router\Router(new \App\Factories\RouteFactory(),new \App\Factories\RequestFactory());

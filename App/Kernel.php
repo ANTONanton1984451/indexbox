@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Interfaces\TemplateBridge;
 use App\Router\Router;
 
 class Kernel
@@ -17,6 +18,13 @@ class Kernel
 
     public function handle()
     {
+        $controller = $this->router->getRoute()->getControllerName();
+        $controllerMethod = $this->router->getRoute()->getControllerMethod();
 
+       $response = (new $controller($this->router->getRoute()->getRequest()))->$controllerMethod();
+
+       if($response instanceof TemplateBridge){
+           $response->showView();
+       }
     }
 }
