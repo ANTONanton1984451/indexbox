@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\RequestInterface;
 
-class Controller
+abstract class Controller
 {
     private RequestInterface $request;
 

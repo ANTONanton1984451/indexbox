@@ -20,6 +20,11 @@ return [
 
         'base_path' => __DIR__.'/resources/views/'
 
+    ],
+
+    'api_response' => [
+
+        'json' => \App\Http\Responses\JsonFormatter::class
     ]
 
 ];

@@ -25,3 +25,20 @@ function view(string $viewName,array $data = []) : \App\Interfaces\TemplateBridg
 {
     return new \App\Template\CustomBridge(new \App\Template\CustomEngine(),$viewName,$data);
 }
+
+/**
+ * @param array|string $data
+ * @param string $type
+ * @param int $code
+ * @return \App\Interfaces\FormatterInterFace
+ */
+function response($data,string $type,int $code = 200) : \App\Interfaces\FormatterInterFace
+{
+    $formatterClass = config('api_response.'.$type);
+
+    if($formatterClass === null){
+        throw new \App\Exceptions\UnsupportedFormatResponseException("Method $type not supported or not register in config.php");
+    }
+
+    return new $formatterClass($data,$code);
+}

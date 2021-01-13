@@ -4,6 +4,8 @@
 namespace App;
 
 
+use App\Exceptions\UnsupportedFormatResponseException;
+use App\Interfaces\FormatterInterFace;
 use App\Interfaces\TemplateBridge;
 use App\Router\Router;
 
@@ -25,6 +27,10 @@ class Kernel
 
        if($response instanceof TemplateBridge){
            $response->showView();
+       }elseif ($response instanceof FormatterInterFace){
+           $response->showResponse();
+       }else{
+           throw new UnsupportedFormatResponseException("Not supported format of response");
        }
     }
 }
