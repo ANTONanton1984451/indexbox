@@ -8,7 +8,7 @@ use App\Interfaces\RequestInterface;
 
 abstract class Controller
 {
-    private RequestInterface $request;
+    protected RequestInterface $request;
 
     public function __construct(RequestInterface $request)
     {

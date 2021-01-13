@@ -16,16 +16,16 @@
     <div class="d-flex flex-column justify-content-start align-items-center">
         <div class="col-12" style="text-align: center">
             <h3>
-                Заголовок статьи
+              <?= $this->title ?>
             </h3>
         </div>
         <div class="col-12">
-            Полный текст
+            <?= $this->body ?>
         </div>
         <div class="col-12 row justify-content-between">
             <i>Дата добавления : </i>
             <span>
-                2000-10-01
+              <?= $this->timeToStr($this->time_create) ?>
             </span>
         </div>
     </div>

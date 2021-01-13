@@ -15,8 +15,8 @@ class Connection
         if(self::$pdo === null){
             self::$pdo = new \PDO(self::formPDOstring(),
                                     config(self::CONFIG_KEY.'.user'),
-                                    config(self::CONFIG_KEY.'.password')
-                                    );
+                                    config(self::CONFIG_KEY.'.password'),
+                                    [\PDO::ATTR_ERRMODE =>\PDO::ERRMODE_EXCEPTION]);
         }
         return self::$pdo;
     }

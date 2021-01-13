@@ -37,4 +37,11 @@ class CustomEngine implements TemplateEngine
     {
         $this->templatePath = $templatePath;
     }
+
+    private function timeToStr(int $timeStamp) : string
+    {
+        return gmdate('Y-m-d',$timeStamp);
+    }
+
+
 }
