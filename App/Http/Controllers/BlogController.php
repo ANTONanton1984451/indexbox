@@ -17,8 +17,8 @@ class BlogController extends Controller
             'description' => $this->request->getQuery('description'),
             'product' => $this->request->getQuery('product'),
             'view' => $this->request->getQuery('view'),
-            'time_create' => $this->request->getQuery('time_create');
-        ]
+            'time_create' => $this->request->getQuery('time_create')
+        ];
 
 
         $blog = new Blog();
