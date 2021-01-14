@@ -10,8 +10,8 @@ export function replaceSearchResult(){
     request.send('/sort?'+sortParams.getSortQuery())
         .then(response => response.json())
         .then(function (response){
+            sortParams.currentSort.offset += Object.keys(response).length;
             mainSide.innerHTML = ''
             addTemplate(response);
-            sortParams.currentSort.offset = response.count;
         })
 }

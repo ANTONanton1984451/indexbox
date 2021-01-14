@@ -119,12 +119,14 @@ abstract class Model
         $this->connection->prepare($query)->execute(array_values($this->columns));
     }
 
-    public static function getModelRows(array $columns,?array $where = null,?string $orderBy = null,?int $limit = null,?int $offset = null)
+
+    public static function getModelRows(array $columns,?array $where = null,?array $orderBy = null,?int $limit = null,?int $offset = null)
     {
         return (new static())->getRows($columns,$where,$orderBy,$limit,$offset);
     }
 
-    private function getRows(array $columns,?array $where = null,?string $orderBy = null,?int $limit = null,?int $offset = null) : array
+
+    private function getRows(array $columns,?array $where = null,?array $orderBy = null,?int $limit = null,?int $offset = null) : array
     {
         $columns = implode(',',$columns);
 
@@ -136,13 +138,15 @@ abstract class Model
             $query .= ' where '.$column .' = '. $value;
         }
         if ($orderBy !== null){
-            $query .= ' order by '. $orderBy;
+
+            $query .= ' order by '. $orderBy[0];
+            $orderBy['desc'] ? $query .= ' DESC ' : $query;
         }
         if ($limit !== null){
             $query .= ' limit '. "$limit";
         }
         if ($offset !== null){
-            $query .= ' offset '."`$offset`";
+            $query .= ' offset '."$offset";
         }
 
        $queryResult = $this->connection->query($query);

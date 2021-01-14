@@ -9,3 +9,5 @@ Router::get('/',[\App\Http\Controllers\MainPageController::class,'render']);
 Router::get('/additional',[\App\Http\Controllers\MainPageController::class,'getAdditional']);
 
 Router::get('/sort',[\App\Http\Controllers\MainPageController::class,'sort']);
+
+Router::get('/search',[\App\Http\Controllers\SearchController::class,'getSearchResult']);

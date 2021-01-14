@@ -2,6 +2,7 @@ import {elementsId,classes} from "./modules/configs.js";
 import {scrollHandler} from "./modules/scroller.js";
 import {sortParams} from "./modules/sortParams.js";
 import {replaceSearchResult} from "./modules/replaceSearchResult.js";
+import {search} from "./modules/search.js";
 
 let sideBar = document.getElementById(elementsId.sideBar),
     burgerIcon = document.getElementById(elementsId.burger),
@@ -39,7 +40,7 @@ viewSort.addEventListener('click',function (Event){
 });
 
 submitSearch.addEventListener('click',function (){
-
+    search(searchInput.value);
 });
 
 pageSize.addEventListener('change',function (Event){

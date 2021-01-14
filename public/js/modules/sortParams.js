@@ -3,6 +3,6 @@ export const sortParams = {
         type : 'time_create',
         desc : true,
         pageSize : 10,
-        offset : 0,
+        offset : 10,
     }
 }
