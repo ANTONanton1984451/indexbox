@@ -29,23 +29,25 @@ class Schema
         $createQueries = $this->creator->formCreateTableQueries();
 
         foreach ($createQueries as $v){
-           $statement = $this->connection->query($v);
-           $statement->execute();
+            $this->connection->query($v);
         }
 
+        $this->addIndexes();
         $this->addCouple();
     }
 
     public function down() : void
     {
-        $this->connection->query('drop table `products`')->execute();
-        $this->connection->query('drop table `blog`')->execute();
+        $this->connection->query('drop table `blog`');
+        $this->connection->query('drop table `products`');
+
     }
 
     public function fill() : void
     {
       $insertData = $this->creator->formInsertData();
 
+      $insertData = array_reverse($insertData);
       foreach ($insertData as $datum){
           $statement = $this->connection->prepare($datum['query']);
           foreach ($datum['data'] as $row) {
@@ -72,9 +74,16 @@ class Schema
 
     private function addCouple() : void
     {
-        $this->connection->query('alter table `blog` add primary key(href)')->execute();
-        $this->connection->query('alter table `products` add unique href_un (href)')->execute();
-        $this->connection->query('alter table `products` add foreign key (name) references blog(product) on delete cascade ');
+        $this->connection->query('alter table `blog` add primary key(href)');
+        $this->connection->query('alter table `blog` add foreign key (product) references products(name) on delete cascade ');
+    }
+
+    private function addIndexes() : void
+    {
+        $this->connection->query('create index name on products(name)');
+        $this->connection->query('create index views on blog(views) ');
+        $this->connection->query('create index time_create on blog(time_create) ');
+        $this->connection->query('create index product on blog(product) ');
     }
 
 
