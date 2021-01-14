@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <?php require 'head.tpl' ?>
-    <title>Статья</title>
+    <title> <?= $this->title ?> </title>
 </head>
 <body>
 <div class="container p-0 main">
@@ -19,14 +19,14 @@
               <?= $this->title ?>
             </h3>
         </div>
-        <div class="col-12">
-            <?= $this->body ?>
-        </div>
-        <div class="col-12 row justify-content-between">
-            <i>Дата добавления : </i>
+        <div class="col-12 row justify-content-between" style="border-top: 1px solid rgba(144,144,144,0.3);border-bottom: 1px solid rgba(144,144,144,0.3);">
+            <i><b>Дата добавления : </b></i>
             <span>
               <?= $this->timeToStr($this->time_create) ?>
             </span>
+        </div>
+        <div class="col-12">
+            <?= $this->body ?>
         </div>
     </div>
 </div>

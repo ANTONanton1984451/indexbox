@@ -10,8 +10,8 @@ class ArticleController extends Controller
 {
     public function get(){
 
-        $blog = Blog::findByKey($this->request->getQuery('articleId'));
-
+        $blog = Blog::findByKey($this->request->getQuery('id'));
+        $blog->increment('views');
         return view('article.index',$blog->toArray());
 
     }

@@ -5,10 +5,11 @@ namespace App\Models;
 
 
 use App\DB\Connection;
+use App\Exceptions\ModelNotFoundException;
 
 abstract class Model
 {
-    protected array $columns;
+    protected array $columns = [];
     protected string $tableName = '';
 
     protected string $primaryKey = 'id';
@@ -19,7 +20,7 @@ abstract class Model
     protected const STRUCTURE = '@structure@';
     protected const VALUES = '@values@';
 
-    protected const INSERT_QUERY = 'insert into `'.self::NAME.'` ( '.self::STRUCTURE.' ) values( '.self::VALUES.')';
+    protected const INSERT_QUERY = 'insert into `'.self::NAME.'` ( '.self::STRUCTURE.' ) values ( '.self::VALUES.')';
     protected const SELECT_QUERY = 'select '.self::VALUES.' from '. self::NAME;
 
 
@@ -51,9 +52,17 @@ abstract class Model
         $query = str_replace(static::NAME,$this->tableName,static::SELECT_QUERY);
         $query = str_replace(static::VALUES,'*',$query);
         $query .= " where $this->primaryKey = ?";
+
         $statement = $this->connection->prepare($query);
         $statement->execute([$value]);
-        $this->columns = $statement->fetchAll(\PDO::FETCH_ASSOC)[0];
+
+        $queryResult = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        if(empty($queryResult)){
+            throw new ModelNotFoundException("Cannot find model");
+        }
+
+        $this->columns = $queryResult[0];
     }
 
     public function toArray() : array
@@ -64,6 +73,7 @@ abstract class Model
     /**
      * @param string $value
      * @return static
+     * @throws ModelNotFoundException
      */
     public static function findByKey(string $value) : Model
     {
@@ -86,19 +96,32 @@ abstract class Model
         $this->tableName = substr(strtolower(static::class),$lastSlashPos+1,strlen(static::class));
     }
 
+    public function increment(string $columnName)
+    {
+        $incr_value = $this->columns[$columnName] + 1;
+        $query = "update `$this->tableName` set $columnName = ? where $this->primaryKey = ?";
+        $this->connection->prepare($query)->execute([$incr_value,$this->columns[$this->primaryKey]]);
+        $this->columns[$columnName] = $incr_value;
+    }
+
     public function save()
     {
         $query = str_replace(static::NAME,$this->tableName,static::INSERT_QUERY);
 
         $placeHolders = str_repeat('?,',count($this->columns));
-
+        $placeHolders = substr($placeHolders,0,strlen($placeHolders) -1);
         $query = str_replace(static::VALUES,$placeHolders,$query);
 
         $structure = implode(',',array_keys($this->columns));
-        $structure = substr($structure,0,strlen($structure)-1);
+        $structure = substr($structure,0,strlen($structure));
         $query = str_replace(static::STRUCTURE,$structure,$query);
 
         $this->connection->prepare($query)->execute(array_values($this->columns));
+    }
+
+    public static function getModelRows(array $columns,?array $where = null,?string $orderBy = null,?int $limit = null,?int $offset = null)
+    {
+        return (new static())->getRows($columns,$where,$orderBy,$limit,$offset);
     }
 
     private function getRows(array $columns,?array $where = null,?string $orderBy = null,?int $limit = null,?int $offset = null) : array

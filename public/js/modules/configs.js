@@ -6,10 +6,9 @@ export const elementsId = {
         viewSort : 'view',
         dateSort : 'date',
         pageSize : 'page-size',
-        sizeBar : 'side-bar',
+        sideBar : 'side-bar',
+        mainSide : 'main-side'
     }
-
- const apiPath = ''
 
 export const classes = {
     fullSideBar : 'full',
@@ -18,3 +17,4 @@ export const classes = {
 export const requestParams = {
     method : 'GET',
 }
+
