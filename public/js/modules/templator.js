@@ -3,6 +3,7 @@ import {elementsId} from "./configs.js";
 export const mainSide = document.getElementById(elementsId.mainSide);
 
 export function addTemplate(articleRows){
+    console.log(articleRows)
     for(let key in articleRows){
         mainSide.appendChild(formTemplate(articleRows[key].title,articleRows[key].description,articleRows[key].views,articleRows[key].href));
     }

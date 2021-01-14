@@ -17,7 +17,7 @@ class Product extends Model
 
     private function hasBlog(string $name)
     {
-        $query = "select *  from `blog` inner join $this->tableName on blog.product = $this->tableName.name where $this->tableName.name = ?";
+        $query = "select *,blog.href as href  from `blog` inner join $this->tableName on blog.product = $this->tableName.name where $this->tableName.name = ?";
         $statement = $this->connection->prepare($query);
         $statement->execute([$name]);
         $columns = $statement->fetchAll(\PDO::FETCH_ASSOC)[0];
