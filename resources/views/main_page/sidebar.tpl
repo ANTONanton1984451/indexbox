@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-4 d-md-flex d-none flex-column align-items-center side-bar h-auto ml-2" id="side-bar">
+<div class="col-lg-3 col-4 d-md-flex d-none flex-column align-items-center justify-content-center justify-content-md-start side-bar h-auto ml-2" id="side-bar">
     <div class="px-2 my-1">
         Поиск : <input type="text" id="search" placeholder="Введите название продукта">
         <button type="button" class="btn btn-outline-primary p-1" id="let-search">Найти</button>
